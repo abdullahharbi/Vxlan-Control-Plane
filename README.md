@@ -92,7 +92,8 @@ interface nve1
 ## 6. إعدادات المنافذ
 ```plaintext
 interface Ethernet1/1
-  switchport access vlan 1000
+  switchport access vlan 1000 (على NXOS-1)
+  switchport access vlan 1001 (على NXOS-2)
 
 interface Ethernet1/2
   switchport access vlan 900
