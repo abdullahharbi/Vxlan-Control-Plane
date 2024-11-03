@@ -56,6 +56,7 @@ vlan 1001
 
 ##  4. إعداد VRF
 ```plaintext
+hardware access-list tcam region racl 1024
 hardware access-list tcam region arp-ether 256
 
 
