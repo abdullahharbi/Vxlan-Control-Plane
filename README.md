@@ -74,6 +74,46 @@ vrf context Tenant-2
 ```
 الوصف: إعداد VRF لتمكين فصل حركة المرور بين جداول routing منفصله عن بعضها
 
+
+##  4. إعداد interface Vlan
+
+
+```
+interface Vlan101
+  no shutdown
+  vrf member Tenant-1
+  ip forward
+
+interface Vlan102
+  no shutdown
+  vrf member Tenant-2
+  ip forward
+
+interface Vlan900
+  no shutdown
+  vrf member Tenant-1
+  ip address 192.168.0.1/24
+
+interface Vlan1000
+  no shutdown
+  vrf member Tenant-2
+  ip address 192.168.0.1/24
+
+interface Vlan1001
+  no shutdown
+  vrf member Tenant-2
+  ip address 192.168.10.1/24
+
+```
+
+الوصف: إعداد interface Vlan لكي تتمكن الاجهزة من التواصل مع بعضها البعض من خلال vlans
+
+
+
+
+
+
+
 ##  5- إعداد واجهة NVE
 ```plaintext
 interface nve1
@@ -81,11 +121,13 @@ interface nve1
   host-reachability protocol bgp
   source-interface loopback0
   member vni 5000
-    suppress-arp
+    suppress-arp (على NXOS-2)
     ingress-replication protocol bgp
   member vni 5005
+    suppress-arp (على NXOS-2)
     ingress-replication protocol bgp
   member vni 6000
+     suppress-arp (على NXOS-2)
     ingress-replication protocol bgp
   member vni 900001 associate-vrf
   member vni 900002 associate-vrf
@@ -169,4 +211,23 @@ evpn
 ## pc6 ip 192.168.0.20 255.255.255.0 192.168.0.1
 
 
+اوامر مهمة مسح جدول arp 
+```
+clear ip arp vrf Tenant-1
+clear ip arp vrf Tenant-2
+
+```
+اوامر مهمة لتحقق من الاتصال
+
+
+```
+show bgp l2vpn evpn summary
+show bgp l2vpn evpn
+show vrf
+show ip interface brief
+show nve vni
+show ip arp
+show mac address-table
+show interface nve1
+```
 ## تمنياتي لكم بالتوفيق 
