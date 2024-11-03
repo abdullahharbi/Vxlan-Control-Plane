@@ -56,6 +56,9 @@ vlan 1001
 
 ##  4. إعداد VRF
 ```plaintext
+hardware access-list tcam region arp-ether 256
+
+
 vrf context Tenant-1
   vni 900001
   rd auto
