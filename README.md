@@ -130,6 +130,9 @@ router bgp 65535
     address-family l2vpn evpn
       send-community
       send-community extended
+  vrf Tenant-2
+    address-family ipv4 unicast
+      advertise l2vpn evpn
 
 ```
 الوصف: تكوين جلسات BGP مع جار باستخدام Loopback وتفعيل تبادل المعلومات بين VNIs باستخدام EVPN.
